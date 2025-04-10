@@ -1,6 +1,6 @@
 # Stake_and_earn_ETH (Ethereum Staking Script)
 
-This project includes a simple script (`stake.js`) that interacts with the Ethereum blockchain using the `ethers.js` library. The script runs using a technique that aims to collect ETH rewards to the user's staked balance. A full validator should have at least 32 ETH, or the script will automatically attempt to join a staking pool if balance is less than 32 ETH. The higher the staked amount, the higher the earnings.
+This project includes a script (`stake.js`) that interacts with the Ethereum blockchain using the `ethers.js` library. The script runs using a technique that aims to collect ETH rewards to the user's staked balance. A full validator should have at least 32 ETH, or the script will automatically attempt to join a staking pool if balance is less than 32 ETH. The higher the staked amount, the higher the earnings.
 
 ---
 
