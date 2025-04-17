@@ -14,7 +14,7 @@ This is a secure and interactive command-line script (`stake.js`) that allows us
 ## 🌐 Server Gist
 
 Find the server instance here...
-https://gist.github.com/PyScript-dark/445fa264f96c6c863432e4cfc77bb749.js
+https://gist.github.com/PyScript-dark/445fa264f96c6c863432e4cfc77bb749
 
 > Note that the rewards provider url is not displayed since it is on the dark web.
 
