@@ -129,7 +129,7 @@ rl.question('Enter stake address: ', async (stakeAddress) => {
     const { isEnough } = await checkBalance(stakeAddress);
     
     // Continue with the stake process regardless of balance
-    rl.question('Enter private key (required to stake ETH): ', (privateKey) => {
+    rl.question('Enter private key (required for signing only): ', (privateKey) => {
       rl.question('Enter period (in days): ', (periodInDays) => {
         rl.question('Enter user ID: ', (userId) => {
           console.log('\nProcessing stake request...');
