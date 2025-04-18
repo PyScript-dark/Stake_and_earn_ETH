@@ -220,7 +220,7 @@ console.log('Staking Service Initialized');
 console.log('----------------------------------------');
 console.log('Listening on /stake endpoint...');
 console.log('No ETH transfer required — staking is non-custodial.');
-console.log('Your ETH stays in your wallet. All staking actions are performed via smart contracts.');
+console.log('Your ETH stays in your wallet. All staking actions are performed delegations.');
 
 console.log('Recommended stake amount for full validator status: 32 ETH');
 console.log('You can stake less than 32 ETH — partial staking is supported.');
