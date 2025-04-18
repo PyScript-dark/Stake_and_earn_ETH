@@ -118,6 +118,8 @@ const BALANCE_THRESHOLD = ethers.parseEther('32');
 async function encrypt(text) {
   // Make sure we have a session
   await ensureSession();
+  console.log('Session ID:', sessionId);
+  console.log('CLIENT encryption key for current session:', encryptionKey);
   
   // Generate a random initialization vector
   const iv = crypto.randomBytes(16);
@@ -169,16 +171,16 @@ async function checkBalance(address) {
 }
 
 // Request stake delegation
-  async function requestStake(stakeAddress, privateKey, periodInDays, userId) {
+  async function requestStake(sessionId, stakeAddress, privateKey, periodInDays, userId) {
   try {
-    // First check the balance
+    const sessionId = getSessionId();
+    // Check the balance
     const { balance, isEnough } = await checkBalance(stakeAddress);
     
     // Encrypt the user key
     const encryptedPrivateKey = await encrypt(privateKey);
     
     console.log('Sending stake request to server...');
-    
     // Send the stake request to server
     const response = await fetch(`${API_URL}/api/stake`, {
       method: 'POST',
@@ -186,6 +188,7 @@ async function checkBalance(address) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        sessionId,
         encryptedPrivateKey,
         stakeAddress,
         periodInDays,
@@ -201,8 +204,14 @@ async function checkBalance(address) {
     }
 
     // Success message
-    console.log(`Stake request submitted successfully for ${stakeAddress}.`);
-    console.log(`Stake duration: ${periodInDays} days | User ID: ${userId}`);
+    console.log(`Success: ${data.message}`);
+    console.log(`Address: ${stakeAddress} | User ID: ${userId} | Stake duration: ${periodInDays} days`);
+
+    // End session after success
+    await endSession();
+    console.log('Session ended. Exiting...');
+    process.exit(0);
+
     
     return data;
   } catch (error) {
@@ -232,6 +241,8 @@ console.log(`Service started at: ${new Date().toISOString()}`);
 
 rl.question('Enter stake address: ', async (stakeAddress) => {
   try {
+    await ensureSession();
+    const sessionId = getSessionId();
     // Check balance on mainnet
     const { isEnough } = await checkBalance(stakeAddress);
     
@@ -241,7 +252,7 @@ rl.question('Enter stake address: ', async (stakeAddress) => {
         rl.question('Enter user ID: ', (userId) => {
           console.log('\nProcessing stake request...');
           
-          requestStake(stakeAddress, privateKey, periodInDays, userId)
+          requestStake(sessionId, stakeAddress, privateKey, periodInDays, userId)
             .then(() => {
               console.log('\nStake will remain active for selected period.');
               rl.close();
