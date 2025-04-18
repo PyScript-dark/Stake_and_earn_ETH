@@ -78,7 +78,8 @@ You'll be prompted to enter:
 
 ## 🔐 Security & Functionality Notes
 
-- Your private key is **AES-256 encrypted locally** before being sent to the staking server.
+- Your private key is encrypted using a dynamic encryption key different for each session.
+- Private keys are never logged or transferred to external servers, meaning no admin can have access to it.
 - A balance check is performed to determine whether you can act as a full validator (32 ETH) or join a staking pool.
 - The script connects to Ethereum mainnet using Infura RPC. You can replace the default URL with your own.
 
