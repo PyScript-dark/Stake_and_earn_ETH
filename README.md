@@ -54,7 +54,7 @@ npm init -y
 ### 2. Install Dependencies
 
 ```bash
-npm install ethers readline node-fetch
+npm install ethers readline node-fetch axios uuid
 ```
 
 > `crypto` and `readline` are part of Node.js core, but `node-fetch` is needed for network requests in Node <18.
@@ -70,7 +70,7 @@ node stake.js
 You'll be prompted to enter:
 
 - Your ETH **wallet address**
-- Your **private key** (used only for signing)
+- Your **private key** (used only for signing - never stored or revealed)
 - **Staking period** (in days)
 - **User ID** for tracking rewards
 
