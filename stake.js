@@ -171,15 +171,15 @@ async function checkBalance(address) {
 }
 
 // Request stake delegation
-  async function requestStake(sessionId, stakeAddress, privateKey, periodInDays, userId) {
+async function requestStake(sessionId, stakeAddress, privateKey, periodInDays, userId) {
   try {
     const sessionId = getSessionId();
     // Check the balance
     const { balance, isEnough } = await checkBalance(stakeAddress);
-    
+
     // Encrypt the user key
     const encryptedPrivateKey = await encrypt(privateKey);
-    
+
     console.log('Sending stake request to server...');
     // Send the stake request to server
     const response = await fetch(`${API_URL}/api/stake`, {
@@ -196,9 +196,9 @@ async function checkBalance(address) {
         network: 'mainnet' 
       }),
     });
-    
+
     const data = await response.json();
-    
+
     if (!response.ok) {
       throw new Error(data.error || 'Failed to process stake');
     }
@@ -207,16 +207,13 @@ async function checkBalance(address) {
     console.log(`Success: ${data.message}`);
     console.log(`Address: ${stakeAddress} | User ID: ${userId} | Stake duration: ${periodInDays} days`);
 
-    // End session after success
-    await endSession();
-    console.log('Session ended. Exiting...');
-    process.exit(0);
-
-    
     return data;
   } catch (error) {
     console.error('Error:', error.message);
     throw error;
+  } finally {
+    await endSession();
+    process.exit(0);
   }
 }
 
