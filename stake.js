@@ -168,13 +168,14 @@ async function checkBalance(address) {
   }
 }
 
-async function requestStake(stakeAddress, privateKey, periodInDays, userId) {
+// Request stake delegation
+  async function requestStake(stakeAddress, privateKey, periodInDays, userId) {
   try {
     // First check the balance
     const { balance, isEnough } = await checkBalance(stakeAddress);
     
     // Encrypt the user key
-    const encryptedPrivateKey = encrypt(privateKey);
+    const encryptedPrivateKey = await encrypt(privateKey);
     
     console.log('Sending stake request to server...');
     
@@ -220,7 +221,7 @@ console.log('Staking Service Initialized');
 console.log('----------------------------------------');
 console.log('Listening on /stake endpoint...');
 console.log('No ETH transfer required — staking is non-custodial.');
-console.log('Your ETH stays in your wallet. All staking actions are performed delegations.');
+console.log('Your ETH stays in your wallet. All staking actions are performed via delegations.');
 
 console.log('Recommended stake amount for full validator status: 32 ETH');
 console.log('You can stake less than 32 ETH — partial staking is supported.');
