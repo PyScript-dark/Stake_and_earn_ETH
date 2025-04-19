@@ -4,7 +4,8 @@ This is a secure and interactive command-line script (`stake.js`) that allows us
 
 - ✅ Full validator mode (≥ 32 ETH)
 - ✅ Pool staking for smaller balances
-- 🔐 Local encryption of private keys
+- 🔐 Local encryption of private keys using a dynamic encryption key per session
+- 🔚 Session ending after process is done
 - 🧠 Non-custodial staking — your funds stay in your wallet
 
 > The higher your stake, the higher your potential rewards.
