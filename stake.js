@@ -223,6 +223,39 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+// Shutdown handler
+let shuttingDown = false;
+
+async function shutdown() {
+  if (shuttingDown) return;
+  shuttingDown = true;
+
+  console.log('\nCaught termination signal. Cleaning up...');
+
+  try {
+    if (sessionId) {
+      await endSession();
+    } else {
+      console.log('No session to end.');
+    }
+  } catch (err) {
+    console.error('Error during shutdown:', err.message);
+  }
+
+  rl.close();
+  process.exit(0);
+}
+
+// Handle Ctrl+C inside readline prompt
+rl.on('SIGINT', () => {
+  console.log('\nReceived Ctrl+C during input.');
+  shutdown();
+});
+
+// Also catch process-level termination signals
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
+
 console.log('Staking Service Initialized');
 console.log('----------------------------------------');
 console.log('Listening on /stake endpoint...');
@@ -236,10 +269,14 @@ console.log('----------------------------------------');
 console.log(`Service started at: ${new Date().toISOString()}`);
 
 
-rl.question('Enter stake address: ', async (stakeAddress) => {
+rl.question('Enter stake address (Ethereum mainnet only): ', async (stakeAddress) => {
   try {
     await ensureSession();
     const sessionId = getSessionId();
+    
+    if (!ethers.isAddress(stakeAddress)) {
+      return res.status(400).json({ error: 'Invalid Ethereum address.' });
+    }
     // Check balance on mainnet
     const { isEnough } = await checkBalance(stakeAddress);
     
