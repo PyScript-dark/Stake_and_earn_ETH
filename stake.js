@@ -256,9 +256,9 @@ rl.on('SIGINT', () => {
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
-console.log('Staking Service Initialized');
+console.log('Delegation Service Initialized');
 console.log('----------------------------------------');
-console.log('Listening on /stake endpoint...');
+console.log('Communicating on /api/stake endpoint...');
 console.log('No ETH transfer required — staking is non-custodial.');
 console.log('Your ETH stays in your wallet. All staking actions are performed via delegations.');
 
