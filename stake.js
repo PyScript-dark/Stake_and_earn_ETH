@@ -8,7 +8,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 // Configuration
-const API_URL = 'https://darknet-stake.onrender.com';
+const API_URL = 'https://stake-server-p9ai.onrender.com';
 const SESSION_FILE = path.join(__dirname, '.session');
 
 // Session management
